@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Minecraft Nether Coordinate Calculator | Overworld ↔ Nether</title>
+<meta name="description" content="Free Minecraft Nether coordinate calculator. Convert Overworld and Nether X, Y and Z coordinates instantly and plan linked Nether portals.">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="Minecraft Nether Coordinate Calculator">
+<meta property="og:description" content="Convert Minecraft Overworld and Nether coordinates instantly using the 8:1 ratio.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://YOUR-DOMAIN.example/">
+<style>
+:root{--bg:#0a0d12;--panel:#141a23;--panel2:#0f141c;--line:#2a3443;--text:#f5f7fa;--muted:#aab4c2;--orange:#ff7a18;--gold:#ffc06b;--green:#69d39a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -15%,#321b0e,transparent 38%),var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1080px;width:calc(100% - 32px);margin:auto}a{color:var(--gold);text-decoration:none}
+header{position:sticky;top:0;z-index:5;background:#0a0d12e8;border-bottom:1px solid #ffffff0d;backdrop-filter:blur(12px);padding:18px 0}
+nav{display:flex;justify-content:space-between;align-items:center}.brand{font-weight:900;letter-spacing:-.03em}.brand b{color:var(--orange)}nav .links a{margin-left:20px;color:var(--muted)}
+.hero{text-align:center;padding:64px 0 28px}.badge{display:inline-block;border:1px solid #5b3921;background:#21160e;color:var(--gold);border-radius:999px;padding:6px 12px;font-size:.86rem;font-weight:800}
+h1{font-size:clamp(2.3rem,6vw,4.5rem);line-height:1.03;letter-spacing:-.055em;max-width:850px;margin:18px auto 14px}.hero p{max-width:720px;margin:auto;color:var(--muted);font-size:1.08rem}
+.calculator{margin:28px auto 64px;background:linear-gradient(145deg,#171e29,#10151d);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 24px 70px #0008}
+.calc-title{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}.ratio{color:var(--gold);font-weight:900}
+.panes{display:grid;grid-template-columns:1fr 55px 1fr;gap:12px;padding:24px}.pane{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:20px}.pane h2{margin:0}.sub{color:var(--muted);font-size:.9rem;margin:2px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}label{display:block;color:var(--muted);font-size:.8rem;font-weight:800;margin-bottom:5px}
+input{width:100%;background:#171e28;border:1px solid #394657;border-radius:10px;padding:11px;color:#fff;font:inherit;outline:0}input:focus{border-color:var(--orange);box-shadow:0 0 0 3px #ff7a1822}
+.arrow{display:grid;place-items:center;color:var(--orange);font-size:2rem;font-weight:900}.result{margin-top:14px;background:#151b25;border:1px solid var(--line);border-radius:11px;padding:11px 13px}.result strong{color:var(--gold)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}button{border:0;border-radius:9px;padding:10px 12px;background:#273142;color:#fff;font-weight:800;cursor:pointer}button:hover{filter:brightness(1.15)}.primary{background:var(--orange);color:#190b02}.reset{margin:0 24px 24px;background:transparent;border:1px solid var(--line);color:var(--muted)}.msg{min-height:20px;color:var(--green);font-size:.82rem;margin-top:5px}
+section{padding-bottom:60px}.section-head{text-align:center;max-width:720px;margin:0 auto 26px}.section-head h2{font-size:2rem;letter-spacing:-.03em;margin-bottom:7px}.section-head p,.card p,details p,.tool p{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card,.tool{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:22px}.card h3{margin:8px 0 4px}.icon{font-size:1.6rem}
+.tool{margin-top:18px}.tool h2{margin-top:0}.formula-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.formula{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px;font-weight:850}.formula span{color:var(--gold)}
+.faq{border-top:1px solid var(--line)}details{border-bottom:1px solid var(--line);padding:17px 0}summary{cursor:pointer;font-weight:850}
+footer{border-top:1px solid var(--line);padding:30px 0 45px;color:var(--muted)}
+@media(max-width:760px){nav .links{display:none}.panes{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.cards,.formula-grid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:430px){.grid{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Minecraft Nether Coordinate Calculator","applicationCategory":"CalculatorApplication","operatingSystem":"Web","description":"Convert Minecraft Overworld and Nether coordinates using the 8:1 horizontal coordinate ratio.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}
+</script>
+</head>
+<body>
+<header><div class="wrap"><nav><a class="brand" href="/">🔥 <b>Nether</b> Calculator</a><div class="links"><a href="#calculator">Calculator</a><a href="#guide">Guide</a><a href="#faq">FAQ</a></div></nav></div></header>
+
+<main>
+<section class="hero wrap">
+<div class="badge">⛏️ Free Minecraft tool · No sign-up</div>
+<h1>Minecraft Nether Coordinate Calculator</h1>
+<p>Convert Overworld ↔ Nether coordinates instantly. Find the matching portal location, keep Y unchanged, and copy your result with one click.</p>
+</section>
+
+<section id="calculator" class="calculator wrap">
+<div class="calc-title"><strong>Coordinate Converter</strong><span class="ratio">8:1 horizontal ratio</span></div>
+<div class="panes">
+<div class="pane">
+<h2>🌎 Overworld</h2><div class="sub">X and Z ÷ 8</div>
+<div class="grid"><div><label>X</label><input id="ox" type="number" step="any" value="800"></div><div><label>Y</label><input id="oy" type="number" step="any" value="64"></div><div><label>Z</label><input id="oz" type="number" step="any" value="-400"></div></div>
+<div class="result">Build in Nether: <strong id="nr">100, 64, -50</strong></div>
+<div class="actions"><button class="primary" onclick="copyNether()">Copy Nether XYZ</button><button onclick="copyNetherCmd()">Copy /tp</button></div><div class="msg" id="m1"></div>
+</div>
+<div class="arrow">⇄</div>
+<div class="pane">
+<h2>🔥 Nether</h2><div class="sub">X and Z × 8</div>
+<div class="grid"><div><label>X</label><input id="nx" type="number" step="any" value="100"></div><div><label>Y</label><input id="ny" type="number" step="any" value="64"></div><div><label>Z</label><input id="nz" type="number" step="any" value="-50"></div></div>
+<div class="result">Build in Overworld: <strong id="or">800, 64, -400</strong></div>
+<div class="actions"><button class="primary" onclick="copyOverworld()">Copy Overworld XYZ</button><button onclick="copyOverworldCmd()">Copy /tp</button></div><div class="msg" id="m2"></div>
+</div>
+</div>
+<button class="reset" onclick="resetCalc()">Reset example</button>
+</section>
+
+<section id="guide" class="wrap">
+<div class="section-head"><h2>How Nether coordinates work</h2><p>The Nether has an 8:1 horizontal scale, making it useful for travelling long distances quickly.</p></div>
+<div class="cards">
+<article class="card"><div class="icon">➗</div><h3>Overworld → Nether</h3><p>Divide X and Z by 8. Y stays the same.</p></article>
+<article class="card"><div class="icon">✖️</div><h3>Nether → Overworld</h3><p>Multiply X and Z by 8. Y stays the same.</p></article>
+<article class="card"><div class="icon">📋</div><h3>Copy your result</h3><p>Copy coordinates or a Java Edition teleport command without typing them again.</p></article>
+</div>
+<div class="tool">
+<h2>Quick reference</h2>
+<div class="formula-grid"><div class="formula">Overworld → Nether: <span>X ÷ 8 · Y unchanged · Z ÷ 8</span></div><div class="formula">Nether → Overworld: <span>X × 8 · Y unchanged · Z × 8</span></div></div>
+<p>Example: <strong>800, 64, -400</strong> in the Overworld corresponds to <strong>100, 64, -50</strong> in the Nether.</p>
+</div>
+<div class="tool">
+<h2>How to link Nether portals</h2>
+<ol><li>Read the X, Y and Z of your existing portal.</li><li>Enter them into the calculator.</li><li>Build the matching portal as close as practical to the calculated X and Z.</li><li>Test the route in both directions. If it links incorrectly, check nearby portals too.</li></ol>
+<p>Java and Bedrock use the same basic 8:1 horizontal conversion, while some portal-linking details differ between editions.</p>
+</div>
+<div class="tool">
+<h2>Nether travel distance</h2>
+<p>Use the 8:1 scale to see how far a trip through the Nether is horizontally.</p>
+<div class="formula-grid"><div><label>Overworld distance</label><input id="distance" type="number" min="0" step="any" value="8000" oninput="distanceCalc()"></div><div class="result">Nether distance: <strong id="distanceResult">1,000 blocks</strong></div></div>
+</div>
+</section>
+
+<section id="faq" class="wrap">
+<div class="section-head"><h2>Frequently asked questions</h2><p>Common questions about Minecraft Nether coordinates and portal linking.</p></div>
+<div class="faq">
+<details open><summary>What is the Nether coordinate ratio?</summary><p>The horizontal scale is 8:1. Divide X and Z by 8 going from the Overworld to the Nether, and multiply them by 8 coming back.</p></details>
+<details><summary>Does Y change?</summary><p>No. Y is not scaled by the 8:1 conversion.</p></details>
+<details><summary>Does it work with negative coordinates?</summary><p>Yes. You can enter negative X and Z values just like positive coordinates.</p></details>
+<details><summary>Why can a portal link to the wrong place?</summary><p>When several portals are nearby, Minecraft can choose a different existing portal near the converted destination. Check the positions of nearby portals and build the intended pair deliberately.</p></details>
+<details><summary>Does it work on Java and Bedrock?</summary><p>Yes for the basic coordinate conversion. Portal-linking behavior can differ between editions.</p></details>
+</div>
+</section>
+</main>
+<footer><div class="wrap"><strong>🔥 Nether Coordinate Calculator</strong><br>Free Minecraft coordinate conversion tool. Calculations run locally in your browser.</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const n=id=>{const v=parseFloat($(id).value);return Number.isFinite(v)?v:0};
+const f=x=>Number.isInteger(x)?String(x):x.toFixed(3).replace(/\.?0+$/,'');
+function update(){
+let ox=n('ox'),oy=n('oy'),oz=n('oz'),nx=n('nx'),ny=n('ny'),nz=n('nz');
+$('nr').textContent=[ox/8,oy,oz/8].map(f).join(', ');
+$('or').textContent=[nx*8,ny,nz*8].map(f).join(', ');
+}
+['ox','oy','oz','nx','ny','nz'].forEach(id=>$(id).addEventListener('input',update));
+function put(text,msg){navigator.clipboard?.writeText(text).then(()=>$(msg).textContent='Copied ✓').catch(()=>$(msg).textContent='Copy unavailable');setTimeout(()=>$(msg).textContent='',1500)}
+function copyNether(){put($('nr').textContent,'m1')}
+function copyOverworld(){put($('or').textContent,'m2')}
+function copyNetherCmd(){let p=$('nr').textContent.split(', ');put('/execute in minecraft:the_nether run tp @s '+p.join(' '),'m1')}
+function copyOverworldCmd(){let p=$('or').textContent.split(', ');put('/execute in minecraft:overworld run tp @s '+p.join(' '),'m2')}
+function resetCalc(){[['ox','800'],['oy','64'],['oz','-400'],['nx','100'],['ny','64'],['nz','-50']].forEach(x=>$(x[0]).value=x[1]);update()}
+function distanceCalc(){let d=Math.max(0,n('distance'));$('distanceResult').textContent=f(d/8)+' blocks'}
+update();distanceCalc();
+</script>
+</body>
+</html>
